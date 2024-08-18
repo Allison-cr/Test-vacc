@@ -4,10 +4,11 @@
 
 Этот проект представляет собой простое iOS-приложение, демонстрирующее использование  checkbox в пользовательском интерфейсе с интеграцией RxSwift для реактивного программирования. Приложение загружает данные из JSON-файла, отображает их в виде списка флажков и предоставляет функциональность для одновременного выбора или снятия выбора со всех флажков.
 
-<img src="Images/screen1.png" alt="Screenshot" width="300"/>
-<img src="Images/screen2.png" alt="Screenshot" width="300"/>
-<img src="Images/screen3.png" alt="Screenshot" width="300"/>
-
+<div style="display: flex; justify-content: space-between;">
+    <img src="Images/screen1.png" alt="Screenshot 1" width="300" style="margin-right: 10px;"/>
+    <img src="Images/screen2.png" alt="Screenshot 2" width="300" style="margin-right: 10px;"/>
+    <img src="Images/screen3.png" alt="Screenshot 3" width="300"/>
+</div>
 ## Функционал
 
 - **Загрузка данных:** Приложение загружает категории из локального JSON-файла и отображает их в виде флажков.
