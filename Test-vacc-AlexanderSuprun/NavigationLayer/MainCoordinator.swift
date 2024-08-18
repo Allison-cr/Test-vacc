@@ -21,8 +21,17 @@ final class MainCoordinator: ICoordinator {
     
     func runMainFlow() {
         let viewModel = MainViewModel()
+        viewModel.coordinator = self
         let mainViewController = MainViewController(viewModel: viewModel)
         navigationController.pushViewController(mainViewController, animated: true)
+    }
+    
+    func runDetailScreen() {
+        let viewModel = DetailScreenViewModel()
+        
+        let viewController = DetailScreenController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+        print("tapp")
     }
     
 }
