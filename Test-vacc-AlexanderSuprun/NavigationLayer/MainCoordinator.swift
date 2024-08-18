@@ -24,6 +24,7 @@ final class MainCoordinator: ICoordinator {
         viewModel.coordinator = self
         let mainViewController = MainViewController(viewModel: viewModel)
         navigationController.pushViewController(mainViewController, animated: true)
+        viewModel.loadData()
     }
     
     func runDetailScreen() {

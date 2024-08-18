@@ -10,18 +10,20 @@ import RxSwift
 import RxCocoa
 
 protocol IMainViewController: AnyObject {
-//    func viewReady(model: [Category])
+    func setupBindings()
 }
 
 
-final class MainViewController: UIViewController {
+final class MainViewController: UIViewController, IMainViewController {
     
     // MARK: - Variables
-    private var elements = MokData().category()
+    private var elements : [Category] = []
     private lazy var checkBoxAll : CheckboxAllButton = settingCheckBoxAll()
-    private lazy var checkStackView : UIStackView = settingCheckVstack()
+    private lazy var checkStackView : UIStackView = setupCheckStackView()
     private lazy var headLabel: UILabel = settingHeadLabel()
     private lazy var button: UIButton = settingButtonLabel()
+    
+    // MARK: - State 
     private let disposeBag = DisposeBag()
     private let selectAllRelay = PublishRelay<Bool>()
     private let tappedAll = PublishRelay<Bool>()
@@ -32,7 +34,20 @@ final class MainViewController: UIViewController {
     init(viewModel: MainViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        settingMainView()
+        setupBindings()
+        setupMainView()
+    }
+    
+    
+    // MARK: - Uptade Data
+    func setupBindings() {
+        viewModel.dataSubject
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] model in
+                self?.elements = model
+                self?.updateCheckboxes()
+            })
+            .disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {
@@ -41,36 +56,37 @@ final class MainViewController: UIViewController {
 }
 
 
-// MARK: - obj func action
+
+// MARK: - @obj func action
 extension MainViewController {
     @objc func pushViewController() {
         viewModel.goNext()
     }
 }
 
-
 extension MainViewController {
-    func settingMainView() {
+    func setupMainView() {
         view.backgroundColor = .cyan
         settingLayout()
         updateCheckboxes()
     }
-    
+}
 
+// MARK: - Сonnections checkBoxes
+extension MainViewController {
     private func updateCheckboxes() {
         checkStackView.arrangedSubviews.forEach {
             $0.removeFromSuperview()
         }
-        
         let checkboxObservables: [Observable<(Bool, Bool)>] = elements.map { category in
-        let checkbox = CheckboxButton(
-            title: category.title,
-            required: category.reqired,
-            tappedAll: category.tapped_on_select_all
-        )
+            let checkbox = CheckboxButton(
+                title: category.title,
+                required: category.reqired,
+                tappedAll: category.tapped_on_select_all
+            )
             checkStackView.addArrangedSubview(checkbox)
-             
-            // MARK: - uptade tap on checkboxAll
+            
+            // uptade tap on checkboxAll
             selectAllRelay
                 .subscribe(onNext: { [weak checkbox] state in
                     if checkbox?.tappedAll == true {
@@ -79,81 +95,36 @@ extension MainViewController {
                 })
                 .disposed(by: disposeBag)
             
-                // Combine state
-                let combinedState = Observable.combineLatest(
-                    checkbox.stateTappedOnSelectAll.asObservable(),
-                    checkbox.stateRequired.asObservable()
-                )
-                return combinedState
-            }
-        
- 
-        
-        
-        // MARK: - если выбраны нужные чекбоксы для тап алл то меняет тап алл состояние
-        // MARK: - work
-       // if alltapped true then
+            // Combine state
+            let combinedState = Observable.combineLatest(
+                checkbox.stateTappedOnSelectAll.asObservable(),
+                checkbox.stateRequired.asObservable()
+            )
+            return combinedState
+        }
+
+        // if alltapped true then change CheckBoxAll state
         Observable.combineLatest(checkboxObservables) { states in
-            let allTappedAll = states.allSatisfy { $0.0 } 
+            let allTappedAll = states.allSatisfy { $0.0 }
             return allTappedAll
         }
         .bind(to: checkBoxAll.rx.isChecked)
         .disposed(by: disposeBag)
         
         
-        // MARK: - если выбраны нужные чекбоксы для required то disable button
-        // MARK: - work
+        // if required true then change button enabled
         Observable.combineLatest(checkboxObservables) { states in
-            // Возвращаем общее состояние для checkBoxAll
             let allRequired = states.allSatisfy { $0.1 }
             return allRequired
         }
         .bind(to: button.rx.isEnabled)
         .disposed(by: disposeBag)
-    
-            
-      }
-
-
-
-
-    // MARK: - contraints
-    func settingLayout() {
-        NSLayoutConstraint.activate([
-            headLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            headLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-            headLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
-            headLabel.heightAnchor.constraint(equalToConstant: 64)
-        ])
-        
-        NSLayoutConstraint.activate([
-            checkStackView.topAnchor.constraint(equalTo: headLabel.bottomAnchor, constant: 12),
-            checkStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-            checkStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
-        ])
-        
-        NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: checkStackView.bottomAnchor, constant: 12),
-            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
-            button.heightAnchor.constraint(equalToConstant: 64)
-        ])
-        
-        
-       
-        NSLayoutConstraint.activate([
-            checkBoxAll.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 12),
-            checkBoxAll.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-            checkBoxAll.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
-            checkBoxAll.heightAnchor.constraint(equalToConstant: 32)
-        ])
     }
 }
 
-
-    // MARK: - Setup settings
+// MARK: - Setup settings
 extension MainViewController {
-    func settingCheckVstack() -> UIStackView {
+    func setupCheckStackView() -> UIStackView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 30
@@ -187,7 +158,6 @@ extension MainViewController {
             action: #selector(pushViewController),
             for: .touchUpInside
         )
-        
         button.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(button)
         return button
@@ -203,6 +173,32 @@ extension MainViewController {
         view.addSubview(checkBox)
         return checkBox
     }
-
 }
-
+// MARK: - Contraints
+extension MainViewController {
+    func settingLayout() {
+        NSLayoutConstraint.activate([
+            headLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            headLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            headLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+            headLabel.heightAnchor.constraint(equalToConstant: 64)
+        ])
+        NSLayoutConstraint.activate([
+            checkStackView.topAnchor.constraint(equalTo: headLabel.bottomAnchor, constant: 12),
+            checkStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            checkStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+        ])
+        NSLayoutConstraint.activate([
+            button.topAnchor.constraint(equalTo: checkStackView.bottomAnchor, constant: 12),
+            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+            button.heightAnchor.constraint(equalToConstant: 64)
+        ])
+        NSLayoutConstraint.activate([
+            checkBoxAll.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 12),
+            checkBoxAll.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            checkBoxAll.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+            checkBoxAll.heightAnchor.constraint(equalToConstant: 32)
+        ])
+    }
+}

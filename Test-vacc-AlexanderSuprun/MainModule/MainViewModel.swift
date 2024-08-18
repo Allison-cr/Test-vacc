@@ -5,23 +5,25 @@
 //  Created by Alexander Suprun on 17.08.2024.
 //
 
-import Foundation
+import RxSwift
+import RxCocoa
 
 protocol IMainViewModel: AnyObject {
     func loadData()
 }
 
 final class MainViewModel: IMainViewModel {
-    weak var viewController: IMainViewController?
     weak var coordinator: MainCoordinator?
+    private weak var viewController: IMainViewController?
+
+    let dataSubject = PublishSubject<[Category]>()
     
     func loadData() {
         let model = MokData().category()
-   //     viewController?.viewReady(model: model)
+        dataSubject.onNext(model)
     }
     
     func goNext() {
-        print("goNext called")
         coordinator?.runDetailScreen()
     }
 }
