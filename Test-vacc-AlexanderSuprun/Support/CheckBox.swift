@@ -22,16 +22,6 @@ class CheckboxButton: UIButton {
      let stateTappedOnSelectAll = BehaviorRelay<Bool>(value: false)
      let stateRequired = BehaviorRelay<Bool>(value: false)
 
-    // first monitored states for TappedOnSelectAll
-    var isCheckedObservable: Observable<Bool> {
-        return stateTappedOnSelectAll.asObservable()
-    }
-    // second monitored states for Reqired
-    var isCheckedObservable2: Observable<Bool> {
-        return stateRequired.asObservable()
-    }
-    
-
     init(title: String, required: Bool, tappedAll: Bool) {
         self.title = title
         self.required = required
@@ -53,19 +43,25 @@ class CheckboxButton: UIButton {
         self.setImage(UIImage(systemName: "square"), for: .normal)
         self.setImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
         self.tintColor = .black
+        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: Margins.spacing, bottom: 0, right: -Margins.spacing)
+
         self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
-
+    
+    // action
     @objc private func buttonTapped() {
         self.isChecked.toggle()
         self.isSelected = self.isChecked
         updateState()
     }
     
-    // for uptade 
+    // Update state with animation
     func updateState() {
-        stateTappedOnSelectAll.accept(tappedAll ? isChecked == tappedAll : true)
-        stateRequired.accept(required ?  isChecked == required : true)
+        UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve, animations: {
+            self.stateTappedOnSelectAll.accept(self.tappedAll ? self.isChecked == self.tappedAll : true)
+            self.stateRequired.accept(self.required ? self.isChecked == self.required : true)
+            self.setImage(self.isSelected ? UIImage(systemName: "checkmark.square.fill") : UIImage(systemName: "square"), for: .normal)
+        })
     }
     
     func updateState(isChecked: Bool) {

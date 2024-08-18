@@ -15,7 +15,6 @@ class CheckboxAllButton: UIButton {
     // MARK: - Properties
     var isChecked: Bool = false 
 
-    
     init() {
         super.init(frame: .zero)
         setupButton()
@@ -25,7 +24,6 @@ class CheckboxAllButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     // setup button
     private func setupButton() {
         self.setTitle("Выбрать все", for: .normal)
@@ -33,6 +31,7 @@ class CheckboxAllButton: UIButton {
         self.setImage(UIImage(systemName: "square"), for: .normal)
         self.setImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
         self.tintColor = .black
+        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: Margins.spacing, bottom: 0, right: -Margins.spacing)
         self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     

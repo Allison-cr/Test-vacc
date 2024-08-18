@@ -16,15 +16,15 @@
 		FE6171512C70DF74003805EE /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6171502C70DF74003805EE /* MainViewController.swift */; };
 		FE6171532C70DF7C003805EE /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6171522C70DF7C003805EE /* MainViewModel.swift */; };
 		FE6171552C70E036003805EE /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6171542C70E036003805EE /* MainModel.swift */; };
-		FE61715B2C70E730003805EE /* MokData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE61715A2C70E730003805EE /* MokData.swift */; };
 		FE61715D2C7103D7003805EE /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE61715C2C7103D7003805EE /* CheckBox.swift */; };
 		FE6171602C711861003805EE /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = FE61715F2C711861003805EE /* RxBlocking */; };
 		FE6171622C711861003805EE /* RxBlocking-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = FE6171612C711861003805EE /* RxBlocking-Dynamic */; };
 		FE6171642C711861003805EE /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = FE6171632C711861003805EE /* RxCocoa */; };
 		FE6171662C711861003805EE /* RxCocoa-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = FE6171652C711861003805EE /* RxCocoa-Dynamic */; };
-		FE6171692C713C65003805EE /* DetailScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6171682C713C65003805EE /* DetailScreenController.swift */; };
-		FE61716B2C713C76003805EE /* DetailScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE61716A2C713C76003805EE /* DetailScreenViewModel.swift */; };
 		FE61716D2C7225F1003805EE /* CheckBoxAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE61716C2C7225F1003805EE /* CheckBoxAll.swift */; };
+		FED93D592C725E6700073C4D /* Margins.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED93D582C725E6700073C4D /* Margins.swift */; };
+		FED93D5C2C72612D00073C4D /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED93D5B2C72612D00073C4D /* DataLoader.swift */; };
+		FED93D5E2C72615E00073C4D /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = FED93D5D2C72615E00073C4D /* data.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,11 +39,11 @@
 		FE6171502C70DF74003805EE /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		FE6171522C70DF7C003805EE /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		FE6171542C70E036003805EE /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
-		FE61715A2C70E730003805EE /* MokData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MokData.swift; sourceTree = "<group>"; };
 		FE61715C2C7103D7003805EE /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
-		FE6171682C713C65003805EE /* DetailScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenController.swift; sourceTree = "<group>"; };
-		FE61716A2C713C76003805EE /* DetailScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenViewModel.swift; sourceTree = "<group>"; };
 		FE61716C2C7225F1003805EE /* CheckBoxAll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxAll.swift; sourceTree = "<group>"; };
+		FED93D582C725E6700073C4D /* Margins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Margins.swift; sourceTree = "<group>"; };
+		FED93D5B2C72612D00073C4D /* DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
+		FED93D5D2C72615E00073C4D /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = data.json; path = ../../../data.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +80,7 @@
 		FE6171332C70DD9B003805EE /* Test-vacc-AlexanderSuprun */ = {
 			isa = PBXGroup;
 			children = (
-				FE6171672C713C34003805EE /* DetailModule */,
+				FED93D5A2C72611800073C4D /* Service */,
 				FE6171592C70E721003805EE /* Support */,
 				FE61714F2C70DF66003805EE /* MainModule */,
 				FE6171482C70DDB4003805EE /* NavigationLayer */,
@@ -131,6 +131,7 @@
 		FE6171582C70E366003805EE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FED93D5D2C72615E00073C4D /* data.json */,
 				FE61713D2C70DD9C003805EE /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -139,20 +140,19 @@
 		FE6171592C70E721003805EE /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				FE61715A2C70E730003805EE /* MokData.swift */,
 				FE61715C2C7103D7003805EE /* CheckBox.swift */,
 				FE61716C2C7225F1003805EE /* CheckBoxAll.swift */,
+				FED93D582C725E6700073C4D /* Margins.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
 		};
-		FE6171672C713C34003805EE /* DetailModule */ = {
+		FED93D5A2C72611800073C4D /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				FE6171682C713C65003805EE /* DetailScreenController.swift */,
-				FE61716A2C713C76003805EE /* DetailScreenViewModel.swift */,
+				FED93D5B2C72612D00073C4D /* DataLoader.swift */,
 			);
-			path = DetailModule;
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE61713E2C70DD9C003805EE /* Assets.xcassets in Resources */,
+				FED93D5E2C72615E00073C4D /* data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,14 +236,13 @@
 			files = (
 				FE6171512C70DF74003805EE /* MainViewController.swift in Sources */,
 				FE61714E2C70DE48003805EE /* MainCoordinator.swift in Sources */,
-				FE61716B2C713C76003805EE /* DetailScreenViewModel.swift in Sources */,
 				FE61716D2C7225F1003805EE /* CheckBoxAll.swift in Sources */,
-				FE61715B2C70E730003805EE /* MokData.swift in Sources */,
 				FE6171352C70DD9B003805EE /* AppDelegate.swift in Sources */,
+				FED93D592C725E6700073C4D /* Margins.swift in Sources */,
 				FE61714C2C70DE3C003805EE /* AppCoordinator.swift in Sources */,
-				FE6171692C713C65003805EE /* DetailScreenController.swift in Sources */,
 				FE6171552C70E036003805EE /* MainModel.swift in Sources */,
 				FE6171372C70DD9B003805EE /* SceneDelegate.swift in Sources */,
+				FED93D5C2C72612D00073C4D /* DataLoader.swift in Sources */,
 				FE61714A2C70DE2B003805EE /* BaseCoordinator.swift in Sources */,
 				FE61715D2C7103D7003805EE /* CheckBox.swift in Sources */,
 				FE6171532C70DF7C003805EE /* MainViewModel.swift in Sources */,
@@ -385,7 +385,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -417,7 +417,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
