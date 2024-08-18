@@ -7,23 +7,30 @@
 
 import RxSwift
 import RxCocoa
+import UIKit
 
-protocol IMainViewModel: AnyObject {
+protocol MainViewModelProtocol: AnyObject {
     func loadData()
 }
 
-final class MainViewModel: IMainViewModel {
+final class MainViewModel: MainViewModelProtocol {
     weak var coordinator: MainCoordinator?
-    private weak var viewController: IMainViewController?
+    private weak var viewController: MainViewController?
 
     let dataSubject = PublishSubject<[Category]>()
     
-    func loadData() {
-        let model = MokData().category()
-        dataSubject.onNext(model)
-    }
     
-    func goNext() {
-        coordinator?.runDetailScreen()
-    }
+    
+    private let enabledButtonColor: UIColor = .black
+    private let disabledButtonColor: UIColor = .lightGray
+    
+    func loadData() {
+            if let model = DataLoader.loadCategories() {
+                dataSubject.onNext(model)
+            } else {
+                print("Не удалось загрузить данные")
+            }
+        }
+    
+
 }

@@ -7,9 +7,17 @@
 
 import Foundation
 
-struct Category {
+struct Category: Decodable {
     let id : Int
     let title : String
-    let reqired: Bool
-    let tapped_on_select_all: Bool
+    let required: Bool
+    let tappedOnSelectAll: Bool
+    
+    
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case required
+        case tappedOnSelectAll = "tapped_on_select_all"
+    }
 }

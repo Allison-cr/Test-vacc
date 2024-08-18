@@ -9,24 +9,25 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol IMainViewController: AnyObject {
+protocol MainViewControllerProtocol: AnyObject {
     func setupBindings()
 }
 
 
-final class MainViewController: UIViewController, IMainViewController {
+final class MainViewController: UIViewController, MainViewControllerProtocol {
     
     // MARK: - Variables
     private var elements : [Category] = []
-    private lazy var checkBoxAll : CheckboxAllButton = settingCheckBoxAll()
+    private lazy var checkBoxAll : CheckboxAllButton = setupCheckBoxAllButton()
     private lazy var checkStackView : UIStackView = setupCheckStackView()
-    private lazy var headLabel: UILabel = settingHeadLabel()
-    private lazy var button: UIButton = settingButtonLabel()
+    private lazy var headLabel: UILabel = setupHeadLabel()
+    private lazy var button: UIButton = setupButtonLabel()
     
-    // MARK: - State 
+    // MARK: - State
     private let disposeBag = DisposeBag()
     private let selectAllRelay = PublishRelay<Bool>()
     private let tappedAll = PublishRelay<Bool>()
+
 
     // MARK: - depency
     private let viewModel: MainViewModel
@@ -59,15 +60,17 @@ final class MainViewController: UIViewController, IMainViewController {
 
 // MARK: - @obj func action
 extension MainViewController {
-    @objc func pushViewController() {
-        viewModel.goNext()
+    @objc func action() {
+        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+        impactFeedbackGenerator.prepare()
+        impactFeedbackGenerator.impactOccurred()
     }
 }
 
 extension MainViewController {
     func setupMainView() {
-        view.backgroundColor = .cyan
-        settingLayout()
+        view.backgroundColor = .white
+        setupLayout()
         updateCheckboxes()
     }
 }
@@ -81,8 +84,8 @@ extension MainViewController {
         let checkboxObservables: [Observable<(Bool, Bool)>] = elements.map { category in
             let checkbox = CheckboxButton(
                 title: category.title,
-                required: category.reqired,
-                tappedAll: category.tapped_on_select_all
+                required: category.required,
+                tappedAll: category.tappedOnSelectAll
             )
             checkStackView.addArrangedSubview(checkbox)
             
@@ -119,10 +122,19 @@ extension MainViewController {
         }
         .bind(to: button.rx.isEnabled)
         .disposed(by: disposeBag)
+        
+        Observable.combineLatest(checkboxObservables) { states in
+            let allRequired = states.allSatisfy { $0.1 }
+            return allRequired ? UIColor.black : UIColor.gray
+        }
+        .bind(to: button.rx.backgroundColor)
+        .disposed(by: disposeBag)
+        
+
     }
 }
 
-// MARK: - Setup settings
+// MARK: - Setup
 extension MainViewController {
     func setupCheckStackView() -> UIStackView {
         let stackView = UIStackView()
@@ -135,7 +147,7 @@ extension MainViewController {
         return stackView
     }
     
-    func settingHeadLabel() -> UILabel {
+    func setupHeadLabel() -> UILabel {
         let label = UILabel()
         label.text = "CheckBox"
         label.textColor = .black
@@ -145,17 +157,18 @@ extension MainViewController {
         return label
     }
     
-    func settingButtonLabel() -> UIButton {
+    func setupButtonLabel() -> UIButton {
         let button = UIButton()
         button.setTitle(
             "Показать все",
             for: .normal
         )
-        button.backgroundColor = .gray
+        button.layer.cornerRadius = 8
         button.isEnabled = true
+        button.backgroundColor = button.isEnabled ? .black : .gray
         button.addTarget(
             self,
-            action: #selector(pushViewController),
+            action: #selector(action),
             for: .touchUpInside
         )
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -163,7 +176,7 @@ extension MainViewController {
         return button
     }
     
-    func settingCheckBoxAll() -> CheckboxAllButton {
+    func setupCheckBoxAllButton() -> CheckboxAllButton {
         let checkBox = CheckboxAllButton()
         checkBox.translatesAutoresizingMaskIntoConstraints = false
         checkBox.rx.tap
@@ -176,7 +189,7 @@ extension MainViewController {
 }
 // MARK: - Contraints
 extension MainViewController {
-    func settingLayout() {
+    func setupLayout() {
         NSLayoutConstraint.activate([
             headLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             headLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
@@ -189,7 +202,7 @@ extension MainViewController {
             checkStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
         ])
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: checkStackView.bottomAnchor, constant: 12),
+            button.topAnchor.constraint(equalTo: checkStackView.bottomAnchor, constant: 32),
             button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
             button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
             button.heightAnchor.constraint(equalToConstant: 64)
