@@ -17,6 +17,14 @@
 		FE6171532C70DF7C003805EE /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6171522C70DF7C003805EE /* MainViewModel.swift */; };
 		FE6171552C70E036003805EE /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6171542C70E036003805EE /* MainModel.swift */; };
 		FE61715B2C70E730003805EE /* MokData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE61715A2C70E730003805EE /* MokData.swift */; };
+		FE61715D2C7103D7003805EE /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE61715C2C7103D7003805EE /* CheckBox.swift */; };
+		FE6171602C711861003805EE /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = FE61715F2C711861003805EE /* RxBlocking */; };
+		FE6171622C711861003805EE /* RxBlocking-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = FE6171612C711861003805EE /* RxBlocking-Dynamic */; };
+		FE6171642C711861003805EE /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = FE6171632C711861003805EE /* RxCocoa */; };
+		FE6171662C711861003805EE /* RxCocoa-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = FE6171652C711861003805EE /* RxCocoa-Dynamic */; };
+		FE6171692C713C65003805EE /* DetailScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6171682C713C65003805EE /* DetailScreenController.swift */; };
+		FE61716B2C713C76003805EE /* DetailScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE61716A2C713C76003805EE /* DetailScreenViewModel.swift */; };
+		FE61716D2C7225F1003805EE /* CheckBoxAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE61716C2C7225F1003805EE /* CheckBoxAll.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +40,10 @@
 		FE6171522C70DF7C003805EE /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		FE6171542C70E036003805EE /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		FE61715A2C70E730003805EE /* MokData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MokData.swift; sourceTree = "<group>"; };
+		FE61715C2C7103D7003805EE /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		FE6171682C713C65003805EE /* DetailScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenController.swift; sourceTree = "<group>"; };
+		FE61716A2C713C76003805EE /* DetailScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenViewModel.swift; sourceTree = "<group>"; };
+		FE61716C2C7225F1003805EE /* CheckBoxAll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxAll.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +51,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE6171662C711861003805EE /* RxCocoa-Dynamic in Frameworks */,
+				FE6171642C711861003805EE /* RxCocoa in Frameworks */,
+				FE6171602C711861003805EE /* RxBlocking in Frameworks */,
+				FE6171622C711861003805EE /* RxBlocking-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +80,7 @@
 		FE6171332C70DD9B003805EE /* Test-vacc-AlexanderSuprun */ = {
 			isa = PBXGroup;
 			children = (
+				FE6171672C713C34003805EE /* DetailModule */,
 				FE6171592C70E721003805EE /* Support */,
 				FE61714F2C70DF66003805EE /* MainModule */,
 				FE6171482C70DDB4003805EE /* NavigationLayer */,
@@ -123,8 +140,19 @@
 			isa = PBXGroup;
 			children = (
 				FE61715A2C70E730003805EE /* MokData.swift */,
+				FE61715C2C7103D7003805EE /* CheckBox.swift */,
+				FE61716C2C7225F1003805EE /* CheckBoxAll.swift */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		FE6171672C713C34003805EE /* DetailModule */ = {
+			isa = PBXGroup;
+			children = (
+				FE6171682C713C65003805EE /* DetailScreenController.swift */,
+				FE61716A2C713C76003805EE /* DetailScreenViewModel.swift */,
+			);
+			path = DetailModule;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +171,12 @@
 			dependencies = (
 			);
 			name = "Test-vacc-AlexanderSuprun";
+			packageProductDependencies = (
+				FE61715F2C711861003805EE /* RxBlocking */,
+				FE6171612C711861003805EE /* RxBlocking-Dynamic */,
+				FE6171632C711861003805EE /* RxCocoa */,
+				FE6171652C711861003805EE /* RxCocoa-Dynamic */,
+			);
 			productName = "Test-vacc-AlexanderSuprun";
 			productReference = FE6171312C70DD9B003805EE /* Test-vacc-AlexanderSuprun.app */;
 			productType = "com.apple.product-type.application";
@@ -171,6 +205,9 @@
 				Base,
 			);
 			mainGroup = FE6171282C70DD9B003805EE;
+			packageReferences = (
+				FE61715E2C711861003805EE /* XCRemoteSwiftPackageReference "RxSwift" */,
+			);
 			productRefGroup = FE6171322C70DD9B003805EE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -198,12 +235,16 @@
 			files = (
 				FE6171512C70DF74003805EE /* MainViewController.swift in Sources */,
 				FE61714E2C70DE48003805EE /* MainCoordinator.swift in Sources */,
+				FE61716B2C713C76003805EE /* DetailScreenViewModel.swift in Sources */,
+				FE61716D2C7225F1003805EE /* CheckBoxAll.swift in Sources */,
 				FE61715B2C70E730003805EE /* MokData.swift in Sources */,
 				FE6171352C70DD9B003805EE /* AppDelegate.swift in Sources */,
 				FE61714C2C70DE3C003805EE /* AppCoordinator.swift in Sources */,
+				FE6171692C713C65003805EE /* DetailScreenController.swift in Sources */,
 				FE6171552C70E036003805EE /* MainModel.swift in Sources */,
 				FE6171372C70DD9B003805EE /* SceneDelegate.swift in Sources */,
 				FE61714A2C70DE2B003805EE /* BaseCoordinator.swift in Sources */,
+				FE61715D2C7103D7003805EE /* CheckBox.swift in Sources */,
 				FE6171532C70DF7C003805EE /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,6 +457,40 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FE61715E2C711861003805EE /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FE61715F2C711861003805EE /* RxBlocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FE61715E2C711861003805EE /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxBlocking;
+		};
+		FE6171612C711861003805EE /* RxBlocking-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FE61715E2C711861003805EE /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = "RxBlocking-Dynamic";
+		};
+		FE6171632C711861003805EE /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FE61715E2C711861003805EE /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		FE6171652C711861003805EE /* RxCocoa-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FE61715E2C711861003805EE /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = "RxCocoa-Dynamic";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FE6171292C70DD9B003805EE /* Project object */;
 }
