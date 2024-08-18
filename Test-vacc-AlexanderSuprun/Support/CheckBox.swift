@@ -35,7 +35,6 @@ class CheckboxButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     // setup button
     private func setupButton() {
         self.setTitle(title, for: .normal)  
@@ -44,7 +43,6 @@ class CheckboxButton: UIButton {
         self.setImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
         self.tintColor = .black
         self.titleEdgeInsets = UIEdgeInsets(top: 0, left: Margins.spacing, bottom: 0, right: -Margins.spacing)
-
         self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     

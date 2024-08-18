@@ -114,7 +114,6 @@ extension MainViewController {
         .bind(to: checkBoxAll.rx.isChecked)
         .disposed(by: disposeBag)
         
-        
         // if required true then change button enabled
         Observable.combineLatest(checkboxObservables) { states in
             let allRequired = states.allSatisfy { $0.1 }
@@ -129,8 +128,6 @@ extension MainViewController {
         }
         .bind(to: button.rx.backgroundColor)
         .disposed(by: disposeBag)
-        
-
     }
 }
 
@@ -149,7 +146,7 @@ extension MainViewController {
     
     func setupHeadLabel() -> UILabel {
         let label = UILabel()
-        label.text = "CheckBox"
+        label.text = "CheckBoxes"
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 32, weight: .thin)
         label.translatesAutoresizingMaskIntoConstraints = false

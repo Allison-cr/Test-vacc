@@ -28,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FE5434BA2C727919003C4C7E /* data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 		FE6171312C70DD9B003805EE /* Test-vacc-AlexanderSuprun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-vacc-AlexanderSuprun.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6171342C70DD9B003805EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE6171362C70DD9B003805EE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +81,7 @@
 		FE6171332C70DD9B003805EE /* Test-vacc-AlexanderSuprun */ = {
 			isa = PBXGroup;
 			children = (
+				FE5434BA2C727919003C4C7E /* data.json */,
 				FED93D5A2C72611800073C4D /* Service */,
 				FE6171592C70E721003805EE /* Support */,
 				FE61714F2C70DF66003805EE /* MainModule */,

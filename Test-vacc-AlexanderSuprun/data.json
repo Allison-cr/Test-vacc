@@ -1,0 +1,15 @@
+[
+    {
+        "id": 1,
+        "title": "Красный",
+        "required": true,
+        "tapped_on_select_all": true
+    },
+    {
+        "id": 2,
+        "title": "Синий",
+        "required": false,
+        "tapped_on_select_all": true
+    }
+]
+
