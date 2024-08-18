@@ -1,5 +1,5 @@
 //
-//  SecondScreenController.swift
+//  DetailScreenController.swift
 //  Test-vacc-AlexanderSuprun
 //
 //  Created by Alexander Suprun on 17.08.2024.
@@ -7,10 +7,10 @@
 
 import UIKit
 
-final class SecondScreenController: UIViewController {
-    private let viewModel : SecondScreenViewModel
+final class DetailScreenController: UIViewController {
+    private let viewModel : DetailScreenViewModel
     
-    init(viewModel: SecondScreenViewModel) {
+    init(viewModel: DetailScreenViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
