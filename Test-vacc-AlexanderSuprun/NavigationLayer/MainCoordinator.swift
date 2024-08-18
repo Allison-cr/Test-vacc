@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class MainCoordinator: ICoordinator {
+final class MainCoordinator: Coordinator {
     private let navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
@@ -26,13 +26,4 @@ final class MainCoordinator: ICoordinator {
         navigationController.pushViewController(mainViewController, animated: true)
         viewModel.loadData()
     }
-    
-    func runDetailScreen() {
-        let viewModel = DetailScreenViewModel()
-        
-        let viewController = DetailScreenController(viewModel: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
-        print("tapp")
-    }
-    
 }
