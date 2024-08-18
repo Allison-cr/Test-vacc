@@ -13,7 +13,6 @@ struct Category: Decodable {
     let required: Bool
     let tappedOnSelectAll: Bool
     
-    
     private enum CodingKeys: String, CodingKey {
         case id
         case title
