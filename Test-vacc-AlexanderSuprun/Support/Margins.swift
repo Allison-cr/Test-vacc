@@ -7,6 +7,8 @@
 
 import Foundation
 
+// MARK: - Enum Margins
+
 enum Margins {
     static let spacing: CGFloat = 16
 }

@@ -10,18 +10,29 @@ import RxSwift
 import RxCocoa
 
 
+// MARK: - CheckboxButton
+
+/// The `CheckboxButton` class represents a custom checkbox button that allows users
+/// to toggle its selection state, with support for reactive programming using RxSwift.
 class CheckboxButton: UIButton {
     
     // MARK: - Properties
+    
     let title: String
     let required: Bool
     let tappedAll: Bool
     var isChecked: Bool = false
     
-    // default state
-     let stateTappedOnSelectAll = BehaviorRelay<Bool>(value: false)
-     let stateRequired = BehaviorRelay<Bool>(value: false)
+    let stateTappedOnSelectAll = BehaviorRelay<Bool>(value: false)
+    let stateRequired = BehaviorRelay<Bool>(value: false)
 
+    // MARK: - Initializers
+       
+    /// Initializes a checkbox button with the specified title, required status, and select-all status.
+    /// - Parameters:
+    ///   - title: The text to be displayed next to the checkbox.
+    ///   - required: Indicates whether the checkbox is required.
+    ///   - tappedAll: Indicates whether the checkbox should be selected when the "select all" option is toggled.
     init(title: String, required: Bool, tappedAll: Bool) {
         self.title = title
         self.required = required
@@ -35,7 +46,9 @@ class CheckboxButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // setup button
+    // MARK: - Setup Methods
+    
+    /// Sets up the button's appearance and actions.
     private func setupButton() {
         self.setTitle(title, for: .normal)  
         self.setTitleColor(.black, for: .normal)
@@ -46,14 +59,18 @@ class CheckboxButton: UIButton {
         self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
-    // action
+    // MARK: - Action Methods
+       
+    /// Handles the button tap, toggling its selection state.
     @objc private func buttonTapped() {
         self.isChecked.toggle()
         self.isSelected = self.isChecked
         updateState()
     }
     
-    // Update state with animation
+    // MARK: - State Update Methods
+      
+    /// Updates the state of the button with an animation.
     func updateState() {
         UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve, animations: {
             self.stateTappedOnSelectAll.accept(self.tappedAll ? self.isChecked == self.tappedAll : true)
@@ -62,6 +79,8 @@ class CheckboxButton: UIButton {
         })
     }
     
+    /// Updates the state of the button with the option to set its checked state explicitly.
+    /// - Parameter isChecked: Sets the button's checked state (selected/unselected).
     func updateState(isChecked: Bool) {
           self.isChecked = isChecked
           self.isSelected = isChecked
@@ -69,7 +88,8 @@ class CheckboxButton: UIButton {
       }
 }
 
-// bind for changing from outside
+// MARK: - Reactive Extensions
+/// Reactive extension for integrating with RxSwift, enabling reactive binding for the `isChecked` state.
 extension Reactive where Base: CheckboxButton {
     var isChecked: Binder<Bool> {
         return Binder(self.base) { checkbox, isChecked in

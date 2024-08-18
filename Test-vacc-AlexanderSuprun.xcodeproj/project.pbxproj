@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE5434BC2C727D3D003C4C7E /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = FE5434BB2C727D3D003C4C7E /* data.json */; };
 		FE6171352C70DD9B003805EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6171342C70DD9B003805EE /* AppDelegate.swift */; };
 		FE6171372C70DD9B003805EE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6171362C70DD9B003805EE /* SceneDelegate.swift */; };
 		FE61713E2C70DD9C003805EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE61713D2C70DD9C003805EE /* Assets.xcassets */; };
@@ -24,11 +25,11 @@
 		FE61716D2C7225F1003805EE /* CheckBoxAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE61716C2C7225F1003805EE /* CheckBoxAll.swift */; };
 		FED93D592C725E6700073C4D /* Margins.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED93D582C725E6700073C4D /* Margins.swift */; };
 		FED93D5C2C72612D00073C4D /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED93D5B2C72612D00073C4D /* DataLoader.swift */; };
-		FED93D5E2C72615E00073C4D /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = FED93D5D2C72615E00073C4D /* data.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		FE5434BA2C727919003C4C7E /* data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
+		FE5434BB2C727D3D003C4C7E /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = data.json; path = ../../../data.json; sourceTree = "<group>"; };
+		FE5434BD2C727FAA003C4C7E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FE6171312C70DD9B003805EE /* Test-vacc-AlexanderSuprun.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-vacc-AlexanderSuprun.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6171342C70DD9B003805EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE6171362C70DD9B003805EE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -44,7 +45,6 @@
 		FE61716C2C7225F1003805EE /* CheckBoxAll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxAll.swift; sourceTree = "<group>"; };
 		FED93D582C725E6700073C4D /* Margins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Margins.swift; sourceTree = "<group>"; };
 		FED93D5B2C72612D00073C4D /* DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
-		FED93D5D2C72615E00073C4D /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = data.json; path = ../../../data.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +65,7 @@
 		FE6171282C70DD9B003805EE = {
 			isa = PBXGroup;
 			children = (
+				FE5434BD2C727FAA003C4C7E /* README.md */,
 				FE6171332C70DD9B003805EE /* Test-vacc-AlexanderSuprun */,
 				FE6171322C70DD9B003805EE /* Products */,
 			);
@@ -81,7 +82,6 @@
 		FE6171332C70DD9B003805EE /* Test-vacc-AlexanderSuprun */ = {
 			isa = PBXGroup;
 			children = (
-				FE5434BA2C727919003C4C7E /* data.json */,
 				FED93D5A2C72611800073C4D /* Service */,
 				FE6171592C70E721003805EE /* Support */,
 				FE61714F2C70DF66003805EE /* MainModule */,
@@ -133,7 +133,7 @@
 		FE6171582C70E366003805EE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				FED93D5D2C72615E00073C4D /* data.json */,
+				FE5434BB2C727D3D003C4C7E /* data.json */,
 				FE61713D2C70DD9C003805EE /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -225,7 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE61713E2C70DD9C003805EE /* Assets.xcassets in Resources */,
-				FED93D5E2C72615E00073C4D /* data.json in Resources */,
+				FE5434BC2C727D3D003C4C7E /* data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

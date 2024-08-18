@@ -9,14 +9,18 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+// MARK: - MainViewControllerProtocol
+
 protocol MainViewControllerProtocol: AnyObject {
     func setupBindings()
 }
 
+// MARK: - MainViewController
 
 final class MainViewController: UIViewController, MainViewControllerProtocol {
     
-    // MARK: - Variables
+    // MARK: - Properties
+    
     private var elements : [Category] = []
     private lazy var checkBoxAll : CheckboxAllButton = setupCheckBoxAllButton()
     private lazy var checkStackView : UIStackView = setupCheckStackView()
@@ -24,14 +28,19 @@ final class MainViewController: UIViewController, MainViewControllerProtocol {
     private lazy var button: UIButton = setupButtonLabel()
     
     // MARK: - State
+    
     private let disposeBag = DisposeBag()
     private let selectAllRelay = PublishRelay<Bool>()
     private let tappedAll = PublishRelay<Bool>()
 
 
-    // MARK: - depency
+    // MARK: - Dependency
+    
     private let viewModel: MainViewModel
     
+    /// Initializer
+    /// - Parameters:
+    ///   - viewModel: The view model to initialize with.
     init(viewModel: MainViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -39,8 +48,7 @@ final class MainViewController: UIViewController, MainViewControllerProtocol {
         setupMainView()
     }
     
-    
-    // MARK: - Uptade Data
+    /// Sets up RxSwift bindings.
     func setupBindings() {
         viewModel.dataSubject
             .observe(on: MainScheduler.instance)
@@ -56,18 +64,26 @@ final class MainViewController: UIViewController, MainViewControllerProtocol {
     }
 }
 
-
-
 // MARK: - @obj func action
+
 extension MainViewController {
     @objc func action() {
         let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
         impactFeedbackGenerator.prepare()
         impactFeedbackGenerator.impactOccurred()
+        UIView.animate(withDuration: 0.3) {
+            self.button.backgroundColor = self.button.backgroundColor == .black ? .darkGray : .black
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+                self.button.backgroundColor = .black
+            }
+        }
     }
 }
 
+// MARK: - Main View Setup
+
 extension MainViewController {
+    /// Sets up the main view.
     func setupMainView() {
         view.backgroundColor = .white
         setupLayout()
@@ -75,8 +91,10 @@ extension MainViewController {
     }
 }
 
-// MARK: - Сonnections checkBoxes
+// MARK: - Checkbox Connections
+
 extension MainViewController {
+    /// Updates the state of the checkboxes based on the data.
     private func updateCheckboxes() {
         checkStackView.arrangedSubviews.forEach {
             $0.removeFromSuperview()
@@ -89,7 +107,7 @@ extension MainViewController {
             )
             checkStackView.addArrangedSubview(checkbox)
             
-            // uptade tap on checkboxAll
+            /// uptade tap on checkboxAll
             selectAllRelay
                 .subscribe(onNext: { [weak checkbox] state in
                     if checkbox?.tappedAll == true {
@@ -98,7 +116,7 @@ extension MainViewController {
                 })
                 .disposed(by: disposeBag)
             
-            // Combine state
+            /// Combine state
             let combinedState = Observable.combineLatest(
                 checkbox.stateTappedOnSelectAll.asObservable(),
                 checkbox.stateRequired.asObservable()
@@ -106,7 +124,7 @@ extension MainViewController {
             return combinedState
         }
 
-        // if alltapped true then change CheckBoxAll state
+        /// if alltapped true then change CheckBoxAll state
         Observable.combineLatest(checkboxObservables) { states in
             let allTappedAll = states.allSatisfy { $0.0 }
             return allTappedAll
@@ -114,7 +132,7 @@ extension MainViewController {
         .bind(to: checkBoxAll.rx.isChecked)
         .disposed(by: disposeBag)
         
-        // if required true then change button enabled
+        /// if required true then change button enabled
         Observable.combineLatest(checkboxObservables) { states in
             let allRequired = states.allSatisfy { $0.1 }
             return allRequired
@@ -132,7 +150,11 @@ extension MainViewController {
 }
 
 // MARK: - Setup
+
 extension MainViewController {
+    
+    /// Creates and configures the stack view for checkboxes.
+    /// - Returns: The configured stack view.
     func setupCheckStackView() -> UIStackView {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -144,6 +166,8 @@ extension MainViewController {
         return stackView
     }
     
+    /// Creates and configures the header label.
+    /// - Returns: The configured header label.
     func setupHeadLabel() -> UILabel {
         let label = UILabel()
         label.text = "CheckBoxes"
@@ -154,6 +178,8 @@ extension MainViewController {
         return label
     }
     
+    /// Creates and configures the button to show all checkboxes.
+    /// - Returns: The configured button.
     func setupButtonLabel() -> UIButton {
         let button = UIButton()
         button.setTitle(
@@ -173,6 +199,8 @@ extension MainViewController {
         return button
     }
     
+    /// Creates and configures the "Select All" button.
+    /// - Returns: The configured "Select All" button.
     func setupCheckBoxAllButton() -> CheckboxAllButton {
         let checkBox = CheckboxAllButton()
         checkBox.translatesAutoresizingMaskIntoConstraints = false
@@ -184,8 +212,11 @@ extension MainViewController {
         return checkBox
     }
 }
-// MARK: - Contraints
+
+// MARK: - Constraints
+
 extension MainViewController {
+    /// Sets up constraints for UI elements.
     func setupLayout() {
         NSLayoutConstraint.activate([
             headLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
