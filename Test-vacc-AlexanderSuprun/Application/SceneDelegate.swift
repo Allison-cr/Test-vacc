@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol IAppFactory {
-    func makeKeyWindowWithCoordinator(scene: UIWindowScene) -> (UIWindow, ICoordinator)
+protocol AppFactory {
+    func makeKeyWindowWithCoordinator(scene: UIWindowScene) -> (UIWindow, Coordinator)
 }
 
-extension IAppFactory {
+extension AppFactory {
     func makeKeyWindowWithCoordinator(
         scene: UIWindowScene
-    ) -> (UIWindow, ICoordinator) {
+    ) -> (UIWindow, Coordinator) {
         let navigationController = UINavigationController()
         navigationController.navigationBar.prefersLargeTitles = true
         
@@ -31,7 +31,7 @@ extension IAppFactory {
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var coordinator: ICoordinator?
+    var coordinator: Coordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowsScene = (scene as? UIWindowScene) else { return }
@@ -52,4 +52,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidEnterBackground(_ scene: UIScene) {}
 }
 
-extension SceneDelegate: IAppFactory {}
+extension SceneDelegate: AppFactory {}
