@@ -13,9 +13,15 @@ protocol IMainViewModel: AnyObject {
 
 final class MainViewModel: IMainViewModel {
     weak var viewController: IMainViewController?
-
+    weak var coordinator: MainCoordinator?
+    
     func loadData() {
         let model = MokData().category()
-        viewController?.viewReady(model: model)
+   //     viewController?.viewReady(model: model)
+    }
+    
+    func goNext() {
+        print("goNext called")
+        coordinator?.runDetailScreen()
     }
 }
