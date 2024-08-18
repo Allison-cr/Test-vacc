@@ -9,6 +9,8 @@
     <img src="Images/screen2.png" alt="Screenshot 2" width="300" style="margin-right: 10px;"/>
     <img src="Images/screen3.png" alt="Screenshot 3" width="300"/>
 </div>
+
+
 ## Функционал
 
 - **Загрузка данных:** Приложение загружает категории из локального JSON-файла и отображает их в виде флажков.
