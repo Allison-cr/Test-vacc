@@ -124,28 +124,40 @@ extension MainViewController {
             return combinedState
         }
 
-        /// if alltapped true then change CheckBoxAll state
-        Observable.combineLatest(checkboxObservables) { states in
-            let allTappedAll = states.allSatisfy { $0.0 }
-            return allTappedAll
+//        /// if alltapped true then change CheckBoxAll state
+//        Observable.combineLatest(checkboxObservables) { states in
+//            let allRequired = states.allSatisfy { $0.1 }
+//            return allRequired
+//        }
+//        .bind(to: checkBoxAll.rx.isChecked)
+//        .disposed(by: disposeBag)
+//        
+//        /// if required true then change button enabled
+//        Observable.combineLatest(checkboxObservables) { states in
+//            let allRequired = states.allSatisfy { $0.1 }
+//            return allRequired
+//        }
+//        .bind(to: button.rx.isEnabled)
+//        .disposed(by: disposeBag)
+//        
+//        Observable.combineLatest(checkboxObservables) { states in
+//            let allRequired = states.allSatisfy { $0.1 }
+//            return allRequired ? UIColor.black : UIColor.gray
+//        }
+//        .bind(to: button.rx.backgroundColor)
+//        .disposed(by: disposeBag)
+//        
+        let allRequiredObservable = Observable.combineLatest(checkboxObservables) { states in
+            return states.allSatisfy { $0.1 }
         }
-        .bind(to: checkBoxAll.rx.isChecked)
-        .disposed(by: disposeBag)
         
-        /// if required true then change button enabled
-        Observable.combineLatest(checkboxObservables) { states in
-            let allRequired = states.allSatisfy { $0.1 }
-            return allRequired
-        }
-        .bind(to: button.rx.isEnabled)
-        .disposed(by: disposeBag)
-        
-        Observable.combineLatest(checkboxObservables) { states in
-            let allRequired = states.allSatisfy { $0.1 }
-            return allRequired ? UIColor.black : UIColor.gray
-        }
-        .bind(to: button.rx.backgroundColor)
-        .disposed(by: disposeBag)
+        allRequiredObservable
+            .subscribe(onNext: { [weak self] allRequired in
+                self?.checkBoxAll.isSelected = allRequired
+                self?.button.isEnabled = allRequired
+                self?.button.backgroundColor = allRequired ? .black : .gray
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -183,12 +195,13 @@ extension MainViewController {
     func setupButtonLabel() -> UIButton {
         let button = UIButton()
         button.setTitle(
-            "Показать все",
+            "Отправить",
             for: .normal
         )
         button.layer.cornerRadius = 8
         button.isEnabled = true
         button.backgroundColor = button.isEnabled ? .black : .gray
+        
         button.addTarget(
             self,
             action: #selector(action),
